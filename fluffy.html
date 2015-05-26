@@ -1,0 +1,81 @@
+
+
+<html>
+<head>
+<title> Fluffy </title>
+<script src="../processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+PImage fluffy[] = new PImage[3];
+int f;
+int time6;
+int startTime6;
+int endTime6;
+int xposition;
+	
+void setup()
+{  
+    size(600,600);
+    
+    f = 1;
+    while(f <= 4)
+	{
+		fluffy[f] = loadImage("fluffy/fluffy"+f+".png");
+		f = f + 1;
+	}	
+	
+	time6 = 0;
+	xposition = 50;
+}  
+
+
+
+
+void draw()
+{
+
+	background(125,125,125);
+	
+	f = 1;
+	startTime6 = 0;
+	endTime6 = 15;
+	
+	while(f <= 3)
+	{
+		if(time6 >= startTime6 && time6 <= endTime6)
+			{
+				image(fluffy[f],100,100);
+			}
+		f = f + 1;
+		startTime6 = startTime6 + 15;
+		endTime6 = endTime6 + 15;
+	
+	}
+	
+	
+	
+	if(time6 > 44)
+	{
+		time6 = 0;
+	}
+	
+	time6 = time6 + 1;
+
+
+}
+
+
+	
+	
+	
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>
+
+

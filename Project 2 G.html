@@ -1,0 +1,449 @@
+<html>
+<head>
+<title> Project 2 G</title>
+
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome.js"></script>
+<!-- Stop copying here -->
+
+<center>
+    <script type="text/javascript" src="script/processing-1.4.1.js"></script>
+    <script type="text/processing" data-processing-target="mycanvas">
+
+/* @pjs globalKeyEvents = "true"; */
+
+//Changes we made////////////////////////////
+
+PImage house;
+
+PImage pump[] = new PImage[8];
+int k;
+int time5;
+int xposition5;
+int startTime5;
+int endTime5;
+int random5;
+
+PImage ghastly[] = new PImage[5];
+int b;
+int time7;
+int startTime7;
+int endTime7;
+int xposition7;
+int yposition7;
+int random7;
+
+/////////////////////////////////////////////	
+	
+	//sound
+	int soundNo1;
+	int bearN;
+	int bearTime;
+	int bearXposition;
+	int bearStartTime;
+	int bearEndTime;
+
+	//images
+	PImage bear[] = new PImage [8];
+	PImage x[] = new PImage[9];
+	PImage s[] = new PImage[8];
+
+	//object
+	int n;
+	int time;
+	int xposition;
+	int startTime;
+	int endTime;
+	int Objectspeed;
+	int moveObjectRight;
+
+	//skull
+	int xposition2;
+	int Sspeed2;
+	int moveSRight2;
+	int Sy2;
+
+	// scared face
+	int sy;
+	int sx;
+
+	//distance between ghost & character
+	int d;
+	int d2;
+	int d3;
+
+void setup()
+{
+	size( 1000, 700 );
+
+	//object
+	x[1] = loadImage("object/x1.png");
+	x[2] = loadImage("object/x2.png");
+	x[3] = loadImage("object/x3.png");
+	x[4] = loadImage("object/x4.png");
+	x[5] = loadImage("object/x5.png");
+	x[6] = loadImage("object/x6.png");
+	x[7] = loadImage("object/x7.png");
+	x[8] = loadImage("object/x8.png");
+	x[9] = loadImage("object/x9.png");
+	
+	n = 1;
+	while(n <= 9)
+	{
+		x[n] = loadImage("object/x"+n+".png");
+		n = n + 1;
+	}
+	
+	time = 0;
+
+	//object
+	xposition = 50;
+	Objectspeed = 5;
+	moveObjectRight = 1;
+	Objecty = random(10,500);
+	soundNo1 = 0;
+
+	//skull
+	s[1] = loadImage("skull/s1.png");
+	s[2] = loadImage("skull/s2.png");
+	s[3] = loadImage("skull/s3.png");
+	s[4] = loadImage("skull/s4.png");
+	s[5] = loadImage("skull/s5.png");
+	s[6] = loadImage("skull/s6.png");
+	s[7] = loadImage("skull/s7.png");
+	s[8] = loadImage("skull/s8.png");
+	
+	n = 1;
+	while(n <= 8)
+	{
+		s[n] = loadImage("skull/s"+n+".png");
+		n = n + 1;
+	}
+	
+	//object
+	xposition2 = 50;
+	Sspeed2 = 5;
+	moveSRight2 = 1;
+	Sy2 = random(10,500);
+	frameRate( 30 );
+
+	//scared image
+	scared = loadImage("images/scared.png");
+
+	//face valuable
+	sy = 300;
+	sx = 850;
+	
+	//counter
+	counter1 = 0;
+	
+	//character animation
+	bearN = 1;
+    while(bearN <= 8)
+	{
+		bear[bearN] = loadImage("images/down"+bearN+".gif");
+		bearN = bearN + 1;
+	}
+	bearTime = 0;
+	bearXposition = 10;
+	
+	///Changes we made////////////////////////////
+	house = loadImage("images/house.jpg");
+	
+	k = 1;
+    while(k <= 8)
+	{
+		pump[k] = loadImage("pump/pump"+k+".gif");
+		k = k + 1;
+	}	
+	
+	time5 = 0;
+	xposition5 = 50;
+	random5 = random(0.1,2.2);
+	
+	b = 1;
+    while(b <= 5)
+	{
+		ghastly[b] = loadImage("ghastly/ghastly"+b+".png");
+		b = b + 1;
+	}	
+	
+	time7 = 0;
+	xposition7 = 50;
+	yposition7 = random(80,200);
+	random7 = (0.3,1);
+	
+////////////////////////////////////////////
+
+
+}
+
+
+void draw()
+{
+	background(0,0,0);
+
+//Changes we made////////////////////////////
+image(house,0,0,1000,700);
+
+//Animation Pumpkin
+
+	k = 1;
+	startTime5 = 0;
+	endTime5 = 3;
+
+
+	while(k <= 8)
+	{
+			
+		if(time5 >= startTime5 && time5 <= endTime5)
+			{
+				image(pump[k],xposition5,550);
+			}
+			
+		xposition5 = xposition5 + random5;
+		k = k + 1;
+		startTime5 = startTime5 + 3;
+		endTime5 = endTime5 + 3;
+
+	}
+
+
+	if(time5 > 23)
+	{
+		time5 = 0;
+	}
+	
+	time5 = time5 + 1;
+	
+	if(xposition5 > 1300)
+	{
+		xposition5 = 0;
+	}
+	
+
+
+//Animation another ghost
+	b = 1;
+	startTime7 = 0;
+	endTime7 = 10;
+	
+	while(b <= 5)
+	{
+		if(time7 >= startTime7 && time7 <= endTime7)
+				{
+					image(ghastly[b],xposition7,yposition7);
+				}
+		b = b + 1;
+		startTime7 = startTime7 + 10;
+		endTime7 = endTime7 + 10;
+		xposition7 = xposition7 + random7;
+	
+	}
+	
+	if(xposition7 > 900)
+	{
+		xposition7 = (0,100);
+		yposition7 = random(80,300);
+	}
+
+	
+	if(time7 > 49)
+	{
+		time7 = 0;
+	}
+	
+	time7 = time7 + 1;
+
+
+
+/////////////////////////////////////////////
+
+
+
+	//face 
+	bearN = 1;
+	bearStartTime = 0;
+	bearEndTime = 5;
+	
+	while(bearN <= 8)
+	{
+		if(bearTime >= bearStartTime && bearTime <= bearEndTime)
+		{
+			image(bear[bearN],850,sy,100,100);
+		}
+				
+		bearN = bearN + 1;
+		bearStartTime = bearStartTime + 5;
+		bearEndTime = bearEndTime + 5;
+	}
+
+bearTime = bearTime + 1;
+	if (bearTime > 40)
+	{
+		bearTime = 0;
+	}
+
+	//face movement
+	if (keyPressed == true) 
+	{
+		if (key == 'w')
+		{
+			sy = sy - 20;
+		}
+		
+		if(sy < 0)
+		{
+			sy = sy + 20;
+		}
+
+		if (key == 's')
+		{
+			sy = sy + 20;
+		}
+	
+		if (sy > 590)
+		{
+			sy = sy - 20;
+		}
+	}
+
+	//ghost
+	startTime = 0;
+	endTime = 45;
+	n = 1;
+
+	if (time >= 0 && time <= 5)
+	{
+		image(x[1],xposition,Objecty);
+	}
+	
+	if (time >= 5 && time <= 10)
+	{
+		image(x[2],xposition,Objecty);
+	}if (time >= 10 && time <= 15)
+	{
+		image(x[3],xposition,Objecty);
+	}if (time >= 15 && time <= 20)
+	{
+		image(x[4],xposition,Objecty);
+	}if (time >= 20 && time <= 25)
+	{
+		image(x[5],xposition,Objecty);
+	}
+	
+	if (time >= 25 && time <= 30)
+	{
+		image(x[6],xposition,Objecty);
+	}
+	if (time >= 30 && time <= 35)
+	{
+		image(x[7],xposition,Objecty);
+	}
+	if (time >= 35 && time <= 40)
+	{
+		image(x[8],xposition,Objecty);
+	}
+	if (time >= 40 && time <= 45)
+	{
+		image(x[9],xposition,Objecty);
+	}
+
+	//skull
+
+	if (time >= 0 && time <= 4)
+	{
+		image(s[1],xposition2,Sy2);
+	}if (time >= 4 && time <= 8)
+	{
+		image(s[2],xposition2,Sy2);
+	}if (time >= 8 && time <= 12)
+	{
+		image(s[3],xposition2,Sy2);
+	}if (time >= 12 && time <= 16)
+	{
+		image(s[4],xposition2,Sy2);
+	}if (time >= 16 && time <= 20)
+	{
+		image(s[5],xposition2,Sy2);
+	}if (time >= 20 && time <=24)
+	{
+		image(s[6],xposition2,Sy2);
+	}if (time >= 24 && time <= 28)
+	{
+		image(s[7],xposition2,Sy2);
+	}if (time >= 28 && time <= 32)
+	{
+		image(s[8],xposition2,Sy2);
+	}
+
+	fill(0,0,0);
+	xposition = xposition + 1;
+	xposition2 = xposition2 + 1;
+	time = time + 1;
+	
+	if(time > 45)
+	{
+	time = random(5,30);
+	}
+
+	if(moveSRight2 == 1)
+	{
+		xposition2 = xposition2 + Sspeed2;
+	}
+	
+	if (xposition2 > 1000)
+	{
+		xposition2 = 0;
+		time = 0;
+		Sy2 = random(10,500);
+		moveSRight2 = 1;
+		Sspeed2 = random(1,10);	
+	}
+	
+	if(moveObjectRight == 1)
+	{
+		xposition = xposition + Objectspeed;
+	}
+	
+	if (xposition > 1000)
+	{
+		xposition = 0;
+		time = 0;
+		Objecty = random(10,500);
+		moveObjectRight = 1;
+		Objectspeed = random(1,10);
+	}
+
+	//hit
+	d = (int)sqrt(sq(xposition-sx-60)+sq(Objecty-sy-20));
+	d2 = (int)sqrt(sq(xposition2-sx-60)+sq(Sy2-sy-20));
+	d3 = (int)sqrt(sq(xposition7-sx-50)+sq(yposition7-sy));
+
+	if(d > 97 && d < 102)
+	{
+	
+		link("game result.html");
+	}
+
+	if(d2 > 97 && d2 < 102)
+	{
+		link("game result.html");
+	}
+
+	if(d3 <= 50)
+	{
+		link("game result.html");
+	}
+
+
+}
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>

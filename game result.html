@@ -1,0 +1,195 @@
+<html>
+<head>
+<title> game result </title>
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome.js"></script>
+<!-- Stop copying here -->
+
+<center>
+    <script type="text/javascript" src="script/processing-1.4.1.js"></script>
+    <script type="text/processing" data-processing-target="mycanvas">
+    
+    /* @pjs globalKeyEvents = "true"; */
+
+
+
+PFont handwritten;
+
+int n;
+int time;
+
+//Changes we made////////////////////////////
+PImage fluffy[] = new PImage[3];
+int f;
+int time6;
+int startTime6;
+int endTime6;
+int xposition;
+
+int soundNo1;
+/////////////////////////////////////////////
+
+
+
+void setup()
+{
+
+size( 1000, 700 );
+frameRate( 30 );
+
+handwritten = loadFont("Handwritten");
+intro = loadImage("images/over.jpg");
+
+counter1 = (int)sessionStorage.transfercounter1;
+
+///Changes we made////////////////////////////
+
+	f = 1;
+    while(f <= 4)
+	{
+		fluffy[f] = loadImage("fluffy/fluffy"+f+".png");
+		f = f + 1;
+	}	
+	
+	time6 = 0;
+
+	soundNo1 = 0;
+	
+////////////////////////////////////////////
+
+
+}
+
+
+void draw()
+{
+
+background(0,0,0);
+
+//restart
+fill(255,255,255);
+stroke(200,0,200);
+strokeWeight(5);
+rect(380,550,250,80);
+
+//text
+fill(40,40,40);
+textFont(handwritten,70);
+text("Restart",430,615);
+
+//title
+fill(200,0,200);
+textFont(handwritten, 100);
+text("You Got Haunted",250,100);
+
+//link to the game
+if(mousePressed == true && mouseButton == LEFT)
+	{
+		if(mouseX > 380 && mouseX < 630 && mouseY > 550 && mouseY < 630)
+		
+		{
+			link("Project 2 G.html");
+		}
+	}
+
+
+///////////////////////////////////////////////////
+	//animate fluffy
+	f = 1;
+	startTime6 = 0;
+	endTime6 = 15;
+	
+	while(f <= 3)
+	{
+		if(time6 >= startTime6 && time6 <= endTime6)
+			{
+				image(fluffy[f],450,280);
+			}
+		f = f + 1;
+		startTime6 = startTime6 + 15;
+		endTime6 = endTime6 + 15;
+	
+	}
+	
+	
+	
+	if(time6 > 44)
+	{
+		time6 = 0;
+	}
+	
+	time6 = time6 + 1;
+
+
+//sound
+    if(soundNo1 == 0)
+    {
+		soundManager.play('s0');
+		soundNo1 = 1;
+	}
+
+
+	
+
+///////////////////////////////////////////////////
+
+/*
+startTime = 0;
+endTime = 40;
+n = 1;
+
+
+	if (time >= 0 && time <= 5)
+	{
+		image(ghost[1],430,250);
+	}if (time >= 5 && time <= 10)
+	{
+		image(ghost[2],430,250);
+	}if (time >= 10 && time <= 15)
+	{
+		image(ghost[3],430,250);
+	}if (time >= 15 && time <= 20)
+	{
+		image(ghost[4],430,250);
+	}if (time >= 20 && time <= 25)
+	{
+		image(ghost[5],430,250);
+	}if (time >= 25 && time <= 30)
+	{
+		image(ghost[6],430,250);
+	}if (time >= 30 && time <= 35)
+	{
+		image(ghost[7],430,250);
+	}if (time >= 35 && time <= 40)
+	{
+		image(ghost[8],430,250);
+	}
+
+	
+	fill(0,0,0);
+	text(time,250,120);
+
+
+	time = time + 2;
+	
+	if(time > 40)
+	{
+		time = 0;
+	}
+	
+	
+
+
+*/
+
+	
+}
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>

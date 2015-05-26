@@ -1,0 +1,115 @@
+<html>
+<head>
+<title> instruction </title>
+<script src="processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+/* @pjs globalKeyEvents = "true"; */
+PFont handwritten;
+PImage ghost1;
+PImage ghost2;
+
+PImage bear[] = new PImage[3];
+int n;
+int time;
+int startTime;
+int endTime;
+int xposition;
+
+void setup()
+{  
+    size( 700, 700 );  
+
+    frameRate( 30 );
+    
+    handwritten = loadFont("handwritten");
+    ghost1 = loadImage("images/ghost1.gif");
+	ghost2 = loadImage("images/ghost2.png");
+    
+    n = 1;
+    while(n <= 4)
+	{
+		bear[n] = loadImage("bear/bear"+n+".png");
+		n = n + 1;
+	}	
+	
+	time = 0;
+	xposition = 50;
+    
+}  
+
+void draw()
+{
+    background(0,0,0);
+    image(ghost1,25,50,300,300);
+    
+    image(ghost2, 420,80,225,225);
+   		
+    fill(255,255,255);
+    stroke(200,0,200);
+    strokeWeight(5);
+    rect(250,550,200,80);
+    
+     if (mousePressed == true && mouseButton == LEFT)
+		{
+			if ( mouseX > 250  && mouseX < 450 && mouseY > 550 && mouseY < 630)
+			   {
+				 link("Project 2 G.html");
+				} 
+		} 
+
+    
+    fill(200,0,200);
+    textFont(handwritten,100);
+    text("Instructions",185,100);
+   
+   fill(255,255,255);
+   textFont(handwritten,40);
+   text("Control the character by pushing keys 'w' and 's' ", 80,250);
+   text("Try to avoid the flying ghosts as much as possible", 80,300);
+   text("* There might be distractions x)", 80,500);
+   
+    fill(0,0,0);
+    textFont(handwritten, 50);
+    text("Start Game",270,605);
+    
+    n = 1;
+	startTime = 0;
+	endTime = 10;
+	
+	while(n <= 3)
+	{
+		if(time >= startTime && time <= endTime)
+			{
+				image(bear[n],500,400);
+			}
+		n = n + 1;
+		startTime = startTime + 10;
+		endTime = endTime + 10;
+	
+	}
+	
+	
+	
+	if(time > 29)
+	{
+		time = 0;
+	}
+	
+	time = time + 1;
+
+
+    
+    
+}
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+
+<body>
+
+
+</body>
+</html>

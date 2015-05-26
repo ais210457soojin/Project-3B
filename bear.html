@@ -1,0 +1,81 @@
+
+
+<html>
+<head>
+<title> Bear </title>
+<script src="../processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+PImage bear[] = new PImage[3];
+int n;
+int time;
+int startTime;
+int endTime;
+int xposition;
+	
+void setup()
+{  
+    size(600,600);
+    
+    n = 1;
+    while(n <= 4)
+	{
+		bear[n] = loadImage("bear/bear"+n+".png");
+		n = n + 1;
+	}	
+	
+	time = 0;
+	xposition = 50;
+}  
+
+
+
+
+void draw()
+{
+
+	background(125,125,125);
+	
+	n = 1;
+	startTime = 0;
+	endTime = 10;
+	
+	while(n <= 3)
+	{
+		if(time >= startTime && time <= endTime)
+			{
+				image(bear[n],xposition,100);
+			}
+		n = n + 1;
+		startTime = startTime + 10;
+		endTime = endTime + 10;
+	
+	}
+	
+	
+	
+	if(time > 29)
+	{
+		time = 0;
+	}
+	
+	time = time + 1;
+
+
+}
+
+
+	
+	
+	
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>
+
+

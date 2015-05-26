@@ -1,0 +1,93 @@
+
+
+<html>
+<head>
+<title> Ghastly </title>
+<script src="../processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+PImage ghastly[] = new PImage[5];
+int b;
+int time7;
+int startTime7;
+int endTime7;
+int xposition7;
+int yposition7;
+int random7;
+	
+void setup()
+{  
+    size(600,600);
+    
+    b = 1;
+    while(b <= 5)
+	{
+		ghastly[b] = loadImage("ghastly/ghastly"+b+".png");
+		b = b + 1;
+	}	
+	
+	time7 = 0;
+	xposition7 = 50;
+	yposition7 = 100;
+	
+	random7 = (0.1,1);
+}  
+
+
+
+
+void draw()
+{
+
+	background(125,125,125);
+	
+	b = 1;
+	startTime7 = 0;
+	endTime7 = 10;
+	
+	while(b <= 5)
+	{
+		if(time7 >= startTime7 && time7 <= endTime7)
+				{
+					image(ghastly[b],xposition7,yposition7);
+				}
+		b = b + 1;
+		startTime7 = startTime7 + 10;
+		endTime7 = endTime7 + 10;
+		xposition7 = xposition7 + random7;
+	
+	}
+	
+	if(xposition7 > 900)
+	{
+		xposition7 = (0,100);
+		yposition7 = random(100,500);
+	}
+
+	
+	if(time7 > 49)
+	{
+		time7 = 0;
+	}
+	
+	time7 = time7 + 1;
+
+	
+
+}
+
+
+	
+	
+	
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>
+
+
